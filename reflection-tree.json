@@ -1,0 +1,180 @@
+{
+  "nodes": [
+    {
+      "id": "START",
+      "parentId": null,
+      "type": "start",
+      "text": "Good evening. Let's reflect on your day.",
+      "options": [],
+      "target": null,
+      "signal": null
+    },
+    {
+      "id": "A1_OPEN",
+      "parentId": "START",
+      "type": "question",
+      "text": "How would you describe your day?",
+      "options": ["Productive", "Tough", "Mixed", "Frustrating"],
+      "target": null,
+      "signal": null
+    },
+    {
+      "id": "A1_DECISION",
+      "parentId": "A1_OPEN",
+      "type": "decision",
+      "text": "",
+      "rules": [
+        {
+          "answers": ["Productive", "Mixed"],
+          "target": "A1_HIGH"
+        },
+        {
+          "answers": ["Tough", "Frustrating"],
+          "target": "A1_LOW"
+        }
+      ]
+    },
+    {
+      "id": "A1_HIGH",
+      "parentId": "A1_DECISION",
+      "type": "question",
+      "text": "When things went well, why?",
+      "options": ["My effort", "Team support", "Luck", "Adaptability"],
+      "signal": "axis1:internal"
+    },
+    {
+      "id": "A1_LOW",
+      "parentId": "A1_DECISION",
+      "type": "question",
+      "text": "When things went wrong, what did you do?",
+      "options": ["Tried to fix it", "Waited for help", "Felt stuck", "Ignored it"],
+      "signal": "axis1:external"
+    },
+    {
+      "id": "A1_REF_INT",
+      "parentId": "A1_HIGH",
+      "type": "reflection",
+      "text": "You showed agency today — your actions influenced outcomes.",
+      "signal": "axis1:internal"
+    },
+    {
+      "id": "A1_REF_EXT",
+      "parentId": "A1_LOW",
+      "type": "reflection",
+      "text": "Some things felt out of control. But you still made choices within them.",
+      "signal": "axis1:external"
+    },
+    {
+      "id": "BRIDGE_1_2",
+      "parentId": "A1_REF_INT",
+      "type": "bridge",
+      "text": "Now let's think about your contribution today.",
+      "target": "A2_OPEN"
+    },
+    {
+      "id": "BRIDGE_1_2B",
+      "parentId": "A1_REF_EXT",
+      "type": "bridge",
+      "text": "Now let's think about your contribution today.",
+      "target": "A2_OPEN"
+    },
+    {
+      "id": "A2_OPEN",
+      "parentId": null,
+      "type": "question",
+      "text": "What best describes your actions today?",
+      "options": ["Helped others", "Did my work", "Expected recognition", "Felt unsupported"]
+    },
+    {
+      "id": "A2_DECISION",
+      "parentId": "A2_OPEN",
+      "type": "decision",
+      "rules": [
+        {
+          "answers": ["Helped others", "Did my work"],
+          "target": "A2_CONTRIB"
+        },
+        {
+          "answers": ["Expected recognition", "Felt unsupported"],
+          "target": "A2_ENTITLE"
+        }
+      ]
+    },
+    {
+      "id": "A2_CONTRIB",
+      "parentId": "A2_DECISION",
+      "type": "reflection",
+      "text": "You focused on contributing — this builds long-term value.",
+      "signal": "axis2:contribution"
+    },
+    {
+      "id": "A2_ENTITLE",
+      "parentId": "A2_DECISION",
+      "type": "reflection",
+      "text": "You noticed what you didn't receive — what could you give instead?",
+      "signal": "axis2:entitlement"
+    },
+    {
+      "id": "BRIDGE_2_3",
+      "parentId": "A2_CONTRIB",
+      "type": "bridge",
+      "text": "Now let's expand perspective beyond yourself.",
+      "target": "A3_OPEN"
+    },
+    {
+      "id": "BRIDGE_2_3B",
+      "parentId": "A2_ENTITLE",
+      "type": "bridge",
+      "text": "Now let's expand perspective beyond yourself.",
+      "target": "A3_OPEN"
+    },
+    {
+      "id": "A3_OPEN",
+      "parentId": null,
+      "type": "question",
+      "text": "Who were you thinking about most today?",
+      "options": ["Myself", "Team", "Colleague", "Customer"]
+    },
+    {
+      "id": "A3_DECISION",
+      "parentId": "A3_OPEN",
+      "type": "decision",
+      "rules": [
+        {
+          "answers": ["Myself"],
+          "target": "A3_SELF"
+        },
+        {
+          "answers": ["Team", "Colleague", "Customer"],
+          "target": "A3_ALTRO"
+        }
+      ]
+    },
+    {
+      "id": "A3_SELF",
+      "parentId": "A3_DECISION",
+      "type": "reflection",
+      "text": "Your focus stayed on yourself — consider how others were impacted.",
+      "signal": "axis3:self"
+    },
+    {
+      "id": "A3_ALTRO",
+      "parentId": "A3_DECISION",
+      "type": "reflection",
+      "text": "You showed awareness beyond yourself — that builds meaning.",
+      "signal": "axis3:altro"
+    },
+    {
+      "id": "SUMMARY",
+      "parentId": "A3_ALTRO",
+      "type": "summary",
+      "text": "Today you showed {axis1} agency, {axis2} mindset, and {axis3} awareness."
+    },
+    {
+      "id": "END",
+      "parentId": "SUMMARY",
+      "type": "end",
+      "text": "See you tomorrow."
+    }
+  ]
+}
